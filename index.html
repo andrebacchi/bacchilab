@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BACCHI LAB</title>
+<meta name="description" content="Laboratórios, simuladores e jogos para pensar como um cientista. Criado por André D. Bacchi.">
+<meta name="theme-color" content="#161a22">
+<meta property="og:title" content="BACCHI LAB">
+<meta property="og:description" content="Laboratórios, simuladores e jogos para pensar como um cientista.">
+<meta property="og:image" content="https://andrebacchi.github.io/bacchilab/icons/icon-512.png">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icons/favicon-64.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="BACCHI LAB">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f6f3; --card:#ffffff; --ink:#161a22; --ink2:#4a505c; --muted:#7a808c; --line:#e3e3dd; --soft:#eeeee9;
+  --shadow:0 1px 2px rgba(22,26,34,.05),0 8px 24px -12px rgba(22,26,34,.18);
+  --serif:'Newsreader',Georgia,serif; --sans:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --r:18px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12151b; --card:#1b1f27; --ink:#eceee9; --ink2:#b9bec8; --muted:#8a909b; --line:#2b303a; --soft:#232833;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --bg:#12151b; --card:#1b1f27; --ink:#eceee9; --ink2:#b9bec8; --muted:#8a909b; --line:#2b303a; --soft:#232833;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+svg.i{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* topo */
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 0 0}
+.brandmini{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;letter-spacing:.02em;font-size:14px}
+.brandmini img{width:30px;height:30px;border-radius:8px}
+.actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.btn{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap;transition:background .15s,border-color .15s}
+.btn:hover{border-color:var(--ink2)}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.icon{width:38px;padding:0;justify-content:center}
+.btn .lbl{display:inline}
+@media (max-width:560px){.btn.hide-sm .lbl{display:none}.btn.hide-sm{width:38px;padding:0;justify-content:center}}
+
+/* herói */
+.hero{padding:44px 0 26px}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+h1{font:600 clamp(44px,9vw,84px)/.95 var(--serif);letter-spacing:-.02em;margin:0}
+h1 .lab{font-family:var(--sans);font-weight:600;font-size:.52em;letter-spacing:.08em;vertical-align:.52em;margin-left:.12em;padding:.12em .38em;border-radius:.3em;background:var(--ink);color:var(--bg)}
+.tag{font:500 clamp(19px,2.6vw,25px)/1.35 var(--serif);color:var(--ink2);margin:16px 0 0;max-width:34ch}
+.stripe{display:flex;gap:4px;margin-top:26px}
+.stripe span{height:6px;border-radius:3px;flex:1;max-width:64px}
+.byline{margin:18px 0 0;font-size:14px;color:var(--muted)}
+.byline b{color:var(--ink2);font-weight:600}
+.author{border:0;background:none;padding:0;font:inherit;cursor:default}
+.author.on{cursor:pointer}.author.on b{text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+.abox{background:var(--card);color:var(--ink);border-radius:22px;padding:28px;width:min(480px,100%);position:relative;text-align:center;max-height:100%;overflow:auto}
+.abox img{width:120px;height:120px;border-radius:50%;object-fit:cover;background:var(--soft)}
+.abox h3{font:600 26px/1.2 var(--serif);margin:12px 0 2px}
+.abox .role{color:var(--muted);font-size:14px;margin:0 0 14px}
+.abox .bio{text-align:left;color:var(--ink2);font-size:15px}
+.abox .bio p{margin:0 0 10px}
+.abox .x{background:var(--soft);color:var(--ink)}
+
+/* seções */
+section.group{padding:26px 0 8px}
+.ghead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:18px;margin-bottom:16px}
+.ghead h2{font:600 26px/1.15 var(--serif);margin:0}
+.ghead p{margin:4px 0 0;color:var(--muted);font-size:14.5px}
+.count{font:500 12px var(--mono);color:var(--muted);white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+@media (max-width:420px){.grid{grid-template-columns:1fr}}
+
+.card{position:relative;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;transition:transform .18s,box-shadow .18s}
+.card::before{content:"";position:absolute;inset:0 0 auto;height:4px;background:var(--c)}
+.card:hover{transform:translateY(-2px)}
+.cmain{display:flex;gap:14px;padding:20px 18px 14px;text-decoration:none;flex:1}
+.cmain img{width:60px;height:60px;border-radius:15px;flex:none;background:var(--soft)}
+.cmain h3{font:600 21px/1.15 var(--serif);margin:2px 0 5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cmain p{margin:0;color:var(--ink2);font-size:14.5px;line-height:1.45}
+.new{font:500 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:4px 6px;border-radius:5px;background:var(--c);color:#fff}
+.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}
+.chip{font-size:12px;padding:2px 8px;border-radius:999px;background:var(--soft);color:var(--ink2)}
+.cfoot{display:flex;align-items:center;gap:8px;padding:0 18px 16px}
+.url{flex:1;min-width:0;font:500 12px var(--mono);color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.open{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:999px;background:var(--c);color:#fff;text-decoration:none;font-size:14px;font-weight:600;border:0}
+.open:hover{filter:brightness(1.08)}
+.qrb{height:36px;width:36px;border-radius:999px;border:1px solid var(--line);background:transparent;display:inline-flex;align-items:center;justify-content:center}
+.qrb:hover{border-color:var(--ink2)}
+
+/* sala de aula */
+.class{margin:34px 0 0;border-radius:var(--r);background:var(--ink);color:var(--bg);padding:24px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
+.class h2{font:600 24px/1.2 var(--serif);margin:0 0 6px}
+.class p{margin:0;opacity:.8;font-size:15px;max-width:56ch}
+.class .btn{background:var(--bg);color:var(--ink);border-color:var(--bg)}
+@media (max-width:640px){.class{grid-template-columns:1fr}}
+
+/* rodapé */
+footer{margin-top:48px;border-top:1px solid var(--line);padding:26px 0 calc(34px + env(safe-area-inset-bottom));font-size:13.5px;color:var(--muted)}
+.social{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.fgrid{display:grid;grid-template-columns:1.3fr 1fr;gap:22px}
+@media (max-width:720px){.fgrid{grid-template-columns:1fr}}
+footer p{margin:0 0 8px}
+footer b{color:var(--ink2);font-weight:600}
+.ver{font:500 11.5px var(--mono);margin-top:12px}
+
+/* modal QR */
+.overlay{position:fixed;inset:0;z-index:50;background:rgba(10,12,16,.72);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:16px}
+.overlay.on{display:flex}
+.qrbox{position:relative;background:#fff;color:#161a22;border-radius:24px;padding:28px 28px 22px;width:min(460px,100%);text-align:center;max-height:100%;overflow:auto}
+.qrbox .ic{width:48px;height:48px;border-radius:12px;vertical-align:middle}
+.qrbox h3{font:600 28px/1.1 var(--serif);margin:10px 0 2px}
+.qrbox .sub{color:#4a505c;margin:0 0 14px;font-size:15px}
+.qrsvg{display:block;width:100%;max-width:min(380px,58vh);margin:0 auto;aspect-ratio:1}
+.qrurl{font:500 clamp(14px,3.6vw,19px) var(--mono);margin:12px 0 16px;word-break:break-all}
+.qrrow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.qrrow .btn{background:#fff;color:#161a22;border-color:#d8d8d2}
+.qrrow .btn.primary{background:#161a22;color:#fff;border-color:#161a22}
+.x{position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:999px;border:0;background:#eeeee9;color:#161a22;display:flex;align-items:center;justify-content:center}
+
+/* modo projetor */
+.proj{position:fixed;inset:0;z-index:40;background:#fff;color:#161a22;display:none;flex-direction:column;padding:clamp(16px,3vw,40px)}
+.proj.on{display:flex}
+.proj header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:clamp(12px,2vw,28px)}
+.proj header h2{font:600 clamp(26px,3.4vw,48px)/1 var(--serif);margin:0}
+.proj header h2 small{display:block;font:500 clamp(13px,1.2vw,18px)/1.4 var(--sans);color:#4a505c;margin-top:6px}
+.proj header .btn{background:#fff;color:#161a22;border-color:#d8d8d2}
+.pgrid{flex:1;min-height:0;display:grid;gap:clamp(10px,1.6vw,24px);grid-template-columns:repeat(var(--cols,3),minmax(0,1fr));grid-auto-rows:minmax(0,1fr)}
+.ptile{min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid #e3e3dd;box-shadow:inset 0 6px 0 var(--c);border-radius:18px;padding:clamp(8px,1.2vw,18px);background:#fff;cursor:pointer}
+.ptile .qrsvg{flex:1;min-height:0;width:100%;height:100%;max-width:none;aspect-ratio:auto}
+.ptile .pn{font:600 clamp(16px,1.9vw,30px)/1.1 var(--serif);margin-top:8px;display:flex;align-items:center;gap:8px;text-align:center}
+.ptile .pn img{width:1.2em;height:1.2em;border-radius:.3em}
+.ptile .pu{font:500 clamp(11px,1vw,15px) var(--mono);color:#4a505c;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:700px){.proj{overflow:auto}.pgrid{grid-template-columns:1fr 1fr!important;grid-auto-rows:auto}.ptile .qrsvg{width:100%;height:auto;aspect-ratio:1}}
+
+/* instalar */
+.ibox{background:var(--card);color:var(--ink);border-radius:22px;padding:26px;width:min(460px,100%);position:relative}
+.ibox h3{font:600 24px/1.2 var(--serif);margin:0 0 8px}
+.ibox p{margin:0 0 14px;color:var(--ink2);font-size:15px}
+.tabs{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px;margin-bottom:14px}
+.tabs button{border:0;background:transparent;border-radius:999px;padding:6px 12px;font-size:13px;color:var(--muted)}
+.tabs button.on{background:var(--ink);color:var(--bg)}
+.ibox ol{margin:0;padding-left:20px;display:grid;gap:6px;font-size:15px}
+.ibox .x{background:var(--soft);color:var(--ink)}
+kbd{font:500 12px var(--mono);border:1px solid var(--line);background:var(--soft);border-radius:4px;padding:0 4px}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:.2s;z-index:60}
+.toast.on{opacity:1;transform:translateX(-50%)}
+:focus-visible{outline:2px solid #2f4b9a;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></symbol>
+  <symbol id="i-proj" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+  <symbol id="i-dl" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 3v13M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5v.01"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+  <symbol id="i-full" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
+</svg>
+
+<div class="wrap">
+  <div class="top">
+    <a class="brandmini" href="./"><img src="icons/icon-192.png" alt="">BACCHI LAB</a>
+    <div class="actions">
+      <button class="btn hide-sm" id="projBtn" title="Mostrar os QR codes de todos os apps no telão"><svg class="i"><use href="#i-proj"/></svg><span class="lbl">Modo projetor</span></button>
+      <button class="btn hide-sm" id="installBtn" title="Instalar o BACCHI LAB"><svg class="i"><use href="#i-dl"/></svg><span class="lbl">Instalar</span></button>
+      <button class="btn icon" id="themeBtn" title="Alternar tema claro/escuro" aria-label="Alternar tema"><svg class="i"><use href="#i-moon"/></svg></button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <p class="eyebrow">Ensino de ciência · saúde · pensamento crítico</p>
+    <h1>BACCHI<span class="lab">LAB</span></h1>
+    <p class="tag">Laboratórios, simuladores e jogos para pensar como um cientista.</p>
+    <div class="stripe" id="stripe" aria-hidden="true"></div>
+    <p class="byline">Criado por <button class="author" id="authorBtn" disabled><b>André D. Bacchi</b></button> · professor e pesquisador</p>
+  </header>
+
+  <main id="groups"></main>
+
+  <aside class="class">
+    <div>
+      <h2>Vai usar em aula?</h2>
+      <p>Projete esta página e abra o <b>Modo projetor</b>: os alunos apontam a câmera do celular para o QR code e o app abre direto no aparelho deles. Nenhum app pede cadastro ou login.</p>
+    </div>
+    <button class="btn" id="projBtn2"><svg class="i"><use href="#i-proj"/></svg>Abrir modo projetor</button>
+  </aside>
+
+  <footer>
+    <div class="social">
+      <a class="btn" href="https://instagram.com/bacchi.andre" target="_blank" rel="noopener"><svg class="i"><use href="#i-ig"/></svg>@bacchi.andre</a>
+      <a class="btn" href="https://linktr.ee/bacchi.andre" target="_blank" rel="noopener"><svg class="i"><use href="#i-link"/></svg>Linktree</a>
+      <button class="btn" id="shareHub"><svg class="i"><use href="#i-qr"/></svg>QR do BACCHI LAB</button>
+    </div>
+    <div class="fgrid">
+      <div>
+        <p><b>© <span id="yr">2026</span> André Demambre Bacchi.</b> Todos os direitos reservados. Os nomes BACCHI LAB e EPIDEMIO LAB, os textos, os ícones e o design dos aplicativos são de autoria de André D. Bacchi.</p>
+        <p>Exceções: o conteúdo do <b>Nomo LAB</b> e do <b>STAT LAB</b> é licenciado sob <a href="https://creativecommons.org/licenses/by/4.0/deed.pt_BR" target="_blank" rel="noopener">CC BY 4.0</a>. Pode ser usado e adaptado, inclusive em aulas e materiais, desde que citada a autoria.</p>
+      </div>
+      <div>
+        <p>Material com finalidade educacional. Não substitui o julgamento clínico, a orientação profissional nem a análise estatística feita por especialista.</p>
+        <p>Os jogos e sátiras usam humor para ensinar a identificar pseudociência. Personagens são fictícios.</p>
+        <p class="ver">BACCHI LAB v1.0 · QR Code é marca registrada da DENSO WAVE INCORPORATED</p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- QR de um app -->
+<div class="overlay" id="qrOv" role="dialog" aria-modal="true" aria-labelledby="qrTitle">
+  <div class="qrbox">
+    <button class="x" data-close aria-label="Fechar"><svg class="i"><use href="#i-x"/></svg></button>
+    <img class="ic" id="qrIc" alt="">
+    <h3 id="qrTitle"></h3>
+    <p class="sub">Aponte a câmera do celular para abrir</p>
+    <div id="qrImg"></div>
+    <p class="qrurl" id="qrUrl"></p>
+    <div class="qrrow">
+      <a class="btn primary" id="qrOpen"><svg class="i"><use href="#i-arrow"/></svg>Abrir</a>
+      <button class="btn" id="qrCopy"><svg class="i"><use href="#i-copy"/></svg>Copiar link</button>
+      <button class="btn" id="qrShare" hidden><svg class="i"><use href="#i-share"/></svg>Compartilhar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modo projetor -->
+<div class="proj" id="proj" role="dialog" aria-modal="true" aria-label="Modo projetor">
+  <header>
+    <h2>Abra no seu celular<small>Aponte a câmera para o QR code do app, ou digite <b style="font-family:var(--mono)">andrebacchi.github.io</b> seguido do nome. Clique em um QR para ampliá-lo.</small></h2>
+    <div class="actions">
+      <button class="btn icon" id="fsBtn" title="Tela cheia" aria-label="Tela cheia"><svg class="i"><use href="#i-full"/></svg></button>
+      <button class="btn" data-close><svg class="i"><use href="#i-x"/></svg>Fechar</button>
+    </div>
+  </header>
+  <div class="pgrid" id="pgrid"></div>
+</div>
+
+<!-- Instalar -->
+<div class="overlay" id="insOv" role="dialog" aria-modal="true" aria-labelledby="insTitle">
+  <div class="ibox">
+    <button class="x" data-close aria-label="Fechar"><svg class="i"><use href="#i-x"/></svg></button>
+    <h3 id="insTitle">Instalar o BACCHI LAB</h3>
+    <p>O BACCHI LAB fica na tela inicial como um aplicativo e abre em tela cheia. Cada laboratório também pode ser instalado separadamente, pelo botão Instalar dentro dele.</p>
+    <div class="tabs" id="tabs"></div>
+    <ol id="steps"></ol>
+  </div>
+</div>
+
+<!-- Sobre o autor (aparece quando AUTHOR.bio estiver preenchido) -->
+<div class="overlay" id="auOv" role="dialog" aria-modal="true" aria-labelledby="auTitle">
+  <div class="abox">
+    <button class="x" data-close aria-label="Fechar"><svg class="i"><use href="#i-x"/></svg></button>
+    <img id="auPhoto" alt="" hidden>
+    <h3 id="auTitle"></h3>
+    <p class="role" id="auRole"></p>
+    <div class="bio" id="auBio"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="qrcode.js"></script>
+<script>
+// ─── Catálogo: para incluir um app novo, basta acrescentar um item aqui ───
+const SITE = 'https://andrebacchi.github.io';
+const GROUPS = [
+  { id:'epidemio', title:'Série EPIDEMIO LAB', desc:'Laboratórios interativos de epidemiologia clínica e estatística.', apps:[
+    { name:'Nomo LAB', path:'/nomo-lab/', icon:'icons/apps/nomo-lab.png', color:'#0f6b63',
+      desc:'Nomogramas interativos de Fagan e do NNT: probabilidade pré e pós-teste, razões de verossimilhança e decisão terapêutica.',
+      chips:['Diagnóstico','Tratamento'] },
+    { name:'STAT LAB', path:'/stat-lab/', icon:'icons/apps/stat-lab.png', color:'#2f4b9a',
+      desc:'Estatística descritiva e inferencial com simulações, gráficos e um guia para escolher o teste certo.',
+      chips:['Descritiva','Inferencial','Qual teste usar?'] },
+    { name:'2×2 LAB', path:'/2-2-lab/', icon:'icons/apps/2-2-lab.png', color:'#7a284b',
+      desc:'Uma tabela, muitas perguntas: medidas de associação e de efeito, testes diagnósticos e intervalos de confiança.',
+      chips:['Tabela 2×2','Medidas de efeito'] },
+  ]},
+  { id:'jogos', title:'Jogos e sátiras', desc:'Humor a serviço do pensamento crítico.', apps:[
+    { name:'Bingo do Picareta', path:'/bingo-picareta/', icon:'icons/apps/bingo-picareta.png', color:'#e11d48',
+      desc:'Os argumentos favoritos da pseudociência numa cartela. Com Modo Sala de Aula para jogar com a turma.',
+      chips:['Jogo','Sala de aula'] },
+    { name:'Gerador de Pseudociências', path:'/gerador-pseudociencias/', icon:'icons/apps/gerador-pseudociencias.png', color:'#a07a2c',
+      desc:'Crie a sua própria pseudociência com o Dr. Charles Latão e aprenda a reconhecer as que existem por aí.',
+      chips:['Sátira'] },
+  ]},
+];
+const ALL = GROUPS.flatMap(g => g.apps);
+
+// ─── Sobre o autor: preencha foto e bio para ativar o clique no nome ───
+const AUTHOR = {
+  name: 'André Demambre Bacchi',
+  role: '',            // ex.: 'Professor da UFR · Farmacologia e Epidemiologia'
+  photo: '',           // ex.: 'img/andre.jpg'
+  bio: [],             // parágrafos, ex.: ['Primeiro parágrafo.', 'Segundo parágrafo.']
+};
+const HUB = { name:'BACCHI LAB', path:'/bacchilab/', icon:'icons/icon-192.png', color:'#161a22' };
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&quot;'}[c]));
+const full = a => SITE + a.path;
+const short = a => full(a).replace(/^https:\/\//,'').replace(/\/$/,'');
+
+// ─── QR como SVG nítido (funciona sem internet) ───
+function qrSVG(text){
+  const q = qrcode(0,'M'); q.addData(text); q.make();
+  const n = q.getModuleCount(), m = 2, s = n + m*2;
+  let d = '';
+  for (let r=0;r<n;r++) for (let c=0;c<n;c++) if (q.isDark(r,c)) d += `M${c+m} ${r+m}h1v1h-1z`;
+  return `<svg class="qrsvg" viewBox="0 0 ${s} ${s}" shape-rendering="crispEdges" role="img" aria-label="QR code para ${esc(text)}"><rect width="${s}" height="${s}" fill="#fff"/><path d="${d}" fill="#161a22"/></svg>`;
+}
+
+// ─── Cartões ───
+$('#stripe').innerHTML = ALL.map(a => `<span style="background:${a.color}"></span>`).join('');
+$('#groups').innerHTML = GROUPS.map(g => `
+  <section class="group" id="${g.id}">
+    <div class="ghead"><div><h2>${esc(g.title)}</h2><p>${esc(g.desc)}</p></div><span class="count">${g.apps.length} ${g.apps.length>1?'apps':'app'}</span></div>
+    <div class="grid">${g.apps.map(a => `
+      <article class="card" style="--c:${a.color}">
+        <a class="cmain" href="${a.path}">
+          <img src="${a.icon}" alt="" loading="lazy" width="60" height="60">
+          <div><h3>${esc(a.name)}${a.isNew?'<span class="new">Novo</span>':''}</h3><p>${esc(a.desc)}</p>
+          <div class="chips">${(a.chips||[]).map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div></div>
+        </a>
+        <div class="cfoot">
+          <span class="url">${esc(short(a))}</span>
+          <button class="qrb" data-qr="${ALL.indexOf(a)}" title="QR code do ${esc(a.name)}" aria-label="QR code do ${esc(a.name)}"><svg class="i"><use href="#i-qr"/></svg></button>
+          <a class="open" href="${a.path}">Abrir<svg class="i"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>`).join('')}
+    </div>
+  </section>`).join('');
+
+// ─── Overlays ───
+let lastFocus = null;
+function openOv(el){ lastFocus = document.activeElement; el.classList.add('on'); document.body.style.overflow='hidden'; el.querySelector('[data-close]')?.focus(); }
+function closeOv(el){ el.classList.remove('on'); if (!document.querySelector('.overlay.on,.proj.on')) document.body.style.overflow=''; lastFocus?.focus?.(); }
+document.querySelectorAll('.overlay,.proj').forEach(el => {
+  el.addEventListener('click', e => { if (e.target === el || e.target.closest('[data-close]')) closeOv(el); });
+});
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  const top = [...document.querySelectorAll('.overlay.on')].pop() || document.querySelector('.proj.on');
+  if (top) closeOv(top);
+});
+
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('on'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('on'),1800); }
+
+let cur = null;
+function showQR(a){
+  cur = a;
+  $('#qrIc').src = a.icon; $('#qrTitle').textContent = a.name;
+  $('#qrImg').innerHTML = qrSVG(full(a));
+  $('#qrUrl').textContent = short(a);
+  $('#qrOpen').href = a.path;
+  $('#qrShare').hidden = !navigator.share;
+  openOv($('#qrOv'));
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-qr]'); if (b) showQR(ALL[+b.dataset.qr]);
+});
+$('#shareHub').onclick = () => showQR(HUB);
+$('#qrCopy').onclick = async () => {
+  try { await navigator.clipboard.writeText(full(cur)); toast('Link copiado'); }
+  catch { prompt('Copie o link:', full(cur)); }
+};
+$('#qrShare').onclick = () => navigator.share({ title: cur.name, url: full(cur) }).catch(()=>{});
+
+// ─── Modo projetor ───
+function buildProj(){
+  const items = [...ALL];
+  const n = items.length, w = innerWidth, h = innerHeight;
+  // escolhe o número de colunas que deixa os QR maiores
+  let best = 3, bestSide = 0;
+  for (let c=1;c<=n;c++){ const r = Math.ceil(n/c); const side = Math.min(w/c, (h-160)/r - 60); if (side > bestSide){ bestSide = side; best = c; } }
+  $('#pgrid').style.setProperty('--cols', best);
+  $('#pgrid').innerHTML = items.map(a => `
+    <div class="ptile" style="--c:${a.color}" data-qr="${ALL.indexOf(a)}" tabindex="0" role="button" aria-label="Ampliar QR do ${esc(a.name)}">
+      ${qrSVG(full(a))}
+      <div class="pn"><img src="${a.icon}" alt="">${esc(a.name)}</div>
+      <div class="pu">${esc(short(a).replace('andrebacchi.github.io',''))}</div>
+    </div>`).join('');
+}
+function openProj(){ buildProj(); openOv($('#proj')); }
+$('#projBtn').onclick = openProj; $('#projBtn2').onclick = openProj;
+addEventListener('resize', () => { if ($('#proj').classList.contains('on')) buildProj(); });
+$('#pgrid').addEventListener('keydown', e => { if ((e.key==='Enter'||e.key===' ') && e.target.dataset.qr){ e.preventDefault(); showQR(ALL[+e.target.dataset.qr]); } });
+$('#fsBtn').onclick = () => {
+  if (document.fullscreenElement) document.exitFullscreen?.();
+  else document.documentElement.requestFullscreen?.().catch(()=>{});
+};
+
+// ─── Tema ───
+const root = document.documentElement;
+try { const t = localStorage.getItem('bacchilab.theme'); if (t) root.dataset.theme = t; } catch {}
+$('#themeBtn').onclick = () => {
+  const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  root.dataset.theme = dark ? 'light' : 'dark';
+  try { localStorage.setItem('bacchilab.theme', root.dataset.theme); } catch {}
+};
+
+// ─── Instalar ───
+let deferred = null;
+addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferred = e; });
+const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+if (standalone()) $('#installBtn').hidden = true;
+addEventListener('appinstalled', () => { $('#installBtn').hidden = true; });
+const STEPS = {
+  ios:['Abra esta página no <b>Safari</b>.','Toque em <b>Compartilhar</b> <kbd>⬆︎</kbd>.','Toque em <b>Adicionar à Tela de Início</b>.','Confirme o nome e toque em <b>Adicionar</b>.'],
+  android:['Abra esta página no <b>Chrome</b>.','Toque no menu <kbd>⋮</kbd>.','Toque em <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.','Confirme. O ícone aparece junto dos seus apps.'],
+  desktop:['<b>Chrome ou Edge:</b> use o ícone de instalar na barra de endereço, ou o menu <kbd>⋮</kbd> → <b>Transmitir, salvar e compartilhar</b> → <b>Instalar página como app</b>.','<b>Safari (Mac):</b> menu <b>Arquivo</b> → <b>Adicionar ao Dock</b>.','<b>Qualquer navegador:</b> salve nos favoritos com <kbd>Ctrl</kbd>+<kbd>D</kbd>.'],
+};
+const TABS = [['ios','iPhone e iPad'],['android','Android'],['desktop','Computador']];
+function plat(){ const u=navigator.userAgent||''; if(/iPhone|iPad|iPod/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1))return'ios'; if(/Android/.test(u))return'android'; return'desktop'; }
+function setTab(k){
+  $('#tabs').innerHTML = TABS.map(([id,l]) => `<button class="${id===k?'on':''}" data-tab="${id}">${l}</button>`).join('');
+  $('#steps').innerHTML = STEPS[k].map(s => `<li>${s}</li>`).join('');
+}
+$('#tabs').addEventListener('click', e => { const b=e.target.closest('[data-tab]'); if(b) setTab(b.dataset.tab); });
+$('#installBtn').onclick = async () => {
+  if (deferred) { try { deferred.prompt(); const r = await deferred.userChoice; deferred = null; if (r?.outcome==='accepted') return; } catch {} }
+  setTab(plat()); openOv($('#insOv'));
+};
+
+if (AUTHOR.bio.length) {
+  const b = $('#authorBtn'); b.disabled = false; b.classList.add('on'); b.title = 'Sobre o autor';
+  b.onclick = () => {
+    $('#auTitle').textContent = AUTHOR.name; $('#auRole').textContent = AUTHOR.role;
+    const ph = $('#auPhoto'); ph.hidden = !AUTHOR.photo; if (AUTHOR.photo) ph.src = AUTHOR.photo;
+    $('#auBio').innerHTML = AUTHOR.bio.map(p => `<p>${esc(p)}</p>`).join('');
+    openOv($('#auOv'));
+  };
+}
+$('#yr').textContent = Math.max(2026, new Date().getFullYear());
+if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
