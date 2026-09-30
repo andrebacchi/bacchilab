@@ -13,6 +13,7 @@ Este arquivo é o ponto de partida para qualquer conversa que vá mexer nos apps
 | 2×2 LAB | `2-2-lab` | branch `gh-pages` | React/Vite (origem Base44) em `main`; ver `standalone/LEIA-ME.md` |
 | Bingo do Picareta | `bingo-picareta` | branch `gh-pages` | idem |
 | Gerador de Pseudociências | `gerador-pseudociencias` | branch `gh-pages` | idem |
+| FARMACO LAB | `farmaco-lab` | branch `main`, raiz | `src/*` → `sh build.sh` gera `index.html` (`sh build.sh artifact` para artefato) |
 
 Endereço de cada app: `https://andrebacchi.github.io/<repositório>/`. O hub fica em `/bacchilab/` (o André usa um encurtador para ele).
 O André saiu do Base44: não há mais sincronização; tudo é mantido direto no GitHub.
@@ -36,14 +37,14 @@ e peça ao André para conferir o site no ar.
 4. Acrescente o ícone em `FILES` e aumente `VERSION` no `sw.js`.
 5. Confira o QR code (dá para decodificar a captura com `cv2.QRCodeDetector`).
 
-Seções atuais: "Série EPIDEMIO LAB" (laboratórios de epidemiologia clínica e estatística) e "Jogos e sátiras".
+Seções atuais: "Série EPIDEMIO LAB" (laboratórios de epidemiologia clínica e estatística), "Outros laboratórios" (FARMACO LAB) e "Jogos e sátiras".
 Sobre o autor: preencha o objeto `AUTHOR` (foto e bio) no `index.html`; enquanto `bio` estiver vazia, o nome não é clicável.
 Livros: ficaram de fora do hub por decisão do André (pode voltar no futuro).
 
 ## Padrão visual da série LAB
 
 - Fontes: Newsreader (títulos), Instrument Sans (texto), IBM Plex Mono (números, códigos). Fundo `#f6f6f3`, texto `#161a22`.
-- Cada app tem uma cor: Nomo `#0f6b63` (verde-petróleo), STAT `#2f4b9a` (índigo), 2×2 `#7a284b` (vinho); Bingo `#e11d48`; Gerador dourado `#a07a2c` sobre escuro.
+- Cada app tem uma cor: Nomo `#0f6b63` (verde-petróleo), STAT `#2f4b9a` (índigo), 2×2 `#7a284b` (vinho); Bingo `#e11d48`; Gerador dourado `#a07a2c` sobre escuro; FARMACO `#b3202a` (vermelho; o André não quis roxo).
 - Cabeçalho: nome do app grande, "Criado por André D. Bacchi", botões em pílula: **Instalar** (sempre escrito por extenso, também no celular),
   Alto contraste, Como usar. O Instalar usa `beforeinstallprompt` e, se não houver, abre instruções com abas iPhone e iPad / Android / Computador.
 - Rodapé com versão e aviso de uso educacional.
@@ -56,6 +57,8 @@ Livros: ficaram de fora do hub por decisão do André (pode voltar no futuro).
 - Exemplos genéricos, sem copiar os slides da aula.
 - Probabilidade fica dentro de Estatística descritiva no STAT LAB.
 - Copyright: "© André Demambre Bacchi. Todos os direitos reservados"; Nomo LAB e STAT LAB sob CC BY 4.0.
+- FARMACO LAB: uma aba por classe (piloto: anestésicos locais; depois farmacocinética, farmacodinâmica, outras classes). Conteúdo baseado nas aulas do André, já com as correções (três estados do canal NaV; manto × núcleo explica a ordem topográfica, não C antes de A; pH inflamado não é fixo; lidocaína 4,5 mg/kg sem adrenalina).
+- Service workers: todos os apps dividem a origem andrebacchi.github.io; ao limpar caches antigos, apague só os do próprio app (filtrar pelo prefixo).
 
 ## Detalhes técnicos úteis
 
