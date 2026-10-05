@@ -14,6 +14,7 @@ Este arquivo é o ponto de partida para qualquer conversa que vá mexer nos apps
 | Bingo do Picareta | `bingo-picareta` | branch `gh-pages` | idem |
 | Gerador de Pseudociências | `gerador-pseudociencias` | branch `gh-pages` | idem |
 | FARMACO LAB | `farmaco-lab` | branch `main`, raiz | `src/*` → `sh build.sh` gera `index.html` (`sh build.sh artifact` para artefato) |
+| Tarot Cético | `tarot-cetico` | branch `main`, raiz | `src/*` → `sh build.sh` gera `index.html` e `sw.js` (`sh build.sh artifact` para artefato); ver o `CLAUDE.md` do repositório |
 
 Endereço de cada app: `https://andrebacchi.github.io/<repositório>/`. O hub fica em `/bacchilab/` (o André usa um encurtador para ele).
 O André saiu do Base44: não há mais sincronização; tudo é mantido direto no GitHub.
@@ -44,7 +45,7 @@ Livros: ficaram de fora do hub por decisão do André (pode voltar no futuro).
 ## Padrão visual da série LAB
 
 - Fontes: Newsreader (títulos), Instrument Sans (texto), IBM Plex Mono (números, códigos). Fundo `#f6f6f3`, texto `#161a22`.
-- Cada app tem uma cor: Nomo `#0f6b63` (verde-petróleo), STAT `#2f4b9a` (índigo), 2×2 `#7a284b` (vinho); Bingo `#e11d48`; Gerador dourado `#a07a2c` sobre escuro; FARMACO `#b3202a` (vermelho; o André não quis roxo).
+- Cada app tem uma cor: Nomo `#0f6b63` (verde-petróleo), STAT `#2f4b9a` (índigo), 2×2 `#7a284b` (vinho); Bingo `#e11d48`; Gerador dourado `#a07a2c` sobre escuro; FARMACO `#b3202a` (vermelho; o André não quis roxo); Tarot Cético ametista `#6b3fa0` (visual próprio: mesa de veludo, cartas em pergaminho, fonte Macondo).
 - Cabeçalho: nome do app grande, "Criado por André D. Bacchi", botões em pílula: **Instalar** (sempre escrito por extenso, também no celular),
   Alto contraste, Como usar. O Instalar usa `beforeinstallprompt` e, se não houver, abre instruções com abas iPhone e iPad / Android / Computador.
 - Rodapé com versão e aviso de uso educacional.
@@ -66,3 +67,5 @@ Livros: ficaram de fora do hub por decisão do André (pode voltar no futuro).
 - Bingo, Modo Sala de Aula: sem servidor. O código da partida define a ordem do sorteio e o código da cartela define a cartela
   (`src/lib/classroom.js`, PRNG mulberry32 com hash; alfabeto sem I, O, 0 e 1).
 - Hub: `qrcode.js` (Kazuhiko Arase, MIT) vem incluído no repositório, para os QR funcionarem sem internet.
+- Tarot Cético: versão digital do livro-jogo (o livro é de acesso aberto e o André, autor, autorizou o uso literal do texto). Modo Educativo sem servidor,
+  com código da turma e código pessoal do aluno (mesma ideia do Bingo). "A carta de hoje" sai da data: no mesmo dia, todos recebem a mesma carta.

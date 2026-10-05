@@ -5,7 +5,7 @@ Laboratórios, simuladores e jogos para pensar como um cientista.
 Endereço: **https://andrebacchi.github.io/bacchilab/**, reunindo os apps de André D. Bacchi:
 
 - **Série EPIDEMIO LAB:** [Nomo LAB](https://andrebacchi.github.io/nomo-lab/), [STAT LAB](https://andrebacchi.github.io/stat-lab/), [2×2 LAB](https://andrebacchi.github.io/2-2-lab/)
-- **Jogos e sátiras:** [Bingo do Picareta](https://andrebacchi.github.io/bingo-picareta/), [Gerador de Pseudociências](https://andrebacchi.github.io/gerador-pseudociencias/)
+- **Jogos e sátiras:** [Bingo do Picareta](https://andrebacchi.github.io/bingo-picareta/), [Gerador de Pseudociências](https://andrebacchi.github.io/gerador-pseudociencias/), [Tarot Cético](https://andrebacchi.github.io/tarot-cetico/)
 
 Cada app abre no próprio endereço. O **Modo projetor** mostra os QR codes de todos eles para a turma abrir no celular.
 
