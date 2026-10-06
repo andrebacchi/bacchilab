@@ -48,6 +48,10 @@ Livros: ficaram de fora do hub por decisão do André (pode voltar no futuro).
 - Cada app tem uma cor: Nomo `#0f6b63` (verde-petróleo), STAT `#2f4b9a` (índigo), 2×2 `#7a284b` (vinho); Bingo `#e11d48`; Gerador dourado `#a07a2c` sobre escuro; FARMACO `#b3202a` (vermelho; o André não quis roxo); Tarot Cético ametista `#6b3fa0` (visual próprio: mesa de veludo, cartas em pergaminho, fonte Macondo).
 - Cabeçalho: nome do app grande, "Criado por André D. Bacchi", botões em pílula: **Instalar** (sempre escrito por extenso, também no celular),
   Alto contraste, Como usar. O Instalar usa `beforeinstallprompt` e, se não houver, abre instruções com abas iPhone e iPad / Android / Computador.
+  O Instalar só some na janela do próprio app instalado. Aberto por dentro de outro app instalado (o hub, por exemplo), o Android também responde
+  `display-mode: standalone`; por isso cada app usa `janelaApp()` (olha `document.referrer` e marcas em localStorage/sessionStorage) e `appInstalado()`
+  (`navigator.getInstalledRelatedApps`, com `related_applications` no manifest). Nesse caso o botão continua visível e as instruções mostram o aviso
+  "abra no Chrome para instalar". Nos apps React a lógica fica em `src/lib/janela.js`.
 - Voltar ao hub: todo app tem o link "‹ BACCHI LAB" (maiúsculas espaçadas, cor apagada) apontando para `https://andrebacchi.github.io/bacchilab/`.
   Na série LAB ele fica acima do nome do app (`a.hub` dentro de `.brand`); no Tarot, no Bingo e no Gerador, no canto superior esquerdo da tela inicial, ao lado do Instalar.
 - Rodapé com versão e aviso de uso educacional.

@@ -1,7 +1,7 @@
 // Service worker do BACCHI LAB. Ele fica na raiz do site, mas só cuida dos
 // arquivos do próprio hub: pedidos para os apps (/nomo-lab/, /stat-lab/ ...)
 // passam direto, e cada app continua com o seu próprio service worker.
-const VERSION = 'bacchi-lab-v5';
+const VERSION = 'bacchi-lab-v6';
 const FILES = ['./', 'index.html', 'qrcode.js', 'manifest.json',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/favicon-64.png', 'icons/apple-touch-icon.png',
   'icons/apps/nomo-lab.png', 'icons/apps/stat-lab.png', 'icons/apps/2-2-lab.png',
