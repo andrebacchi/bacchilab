@@ -11,6 +11,7 @@ Este arquivo é o ponto de partida para qualquer conversa que vá mexer nos apps
 | Nomo LAB | `nomo-lab` | branch `main`, raiz | `index.html` é a fonte (arquivo único) |
 | STAT LAB | `stat-lab` | branch `main`, raiz | `src/*` → `sh build.sh` gera `index.html` |
 | 2×2 LAB | `2-2-lab` | branch `gh-pages` | React/Vite (origem Base44) em `main`; ver `standalone/LEIA-ME.md` |
+| STUDY LAB | `study-lab` | branch `main`, raiz | `src/*` → `sh build.sh` gera `index.html` (`sh build.sh artifact` para artefato); ver o `README.md` do repositório |
 | Bingo do Picareta | `bingo-picareta` | branch `gh-pages` | idem |
 | Gerador de Pseudociências | `gerador-pseudociencias` | branch `gh-pages` | idem |
 | FARMACO LAB | `farmaco-lab` | branch `main`, raiz | `src/*` → `sh build.sh` gera `index.html` (`sh build.sh artifact` para artefato) |
@@ -46,7 +47,7 @@ Livros: ficaram de fora do hub por decisão do André (pode voltar no futuro).
 ## Padrão visual da série LAB
 
 - Fontes: Newsreader (títulos), Instrument Sans (texto), IBM Plex Mono (números, códigos). Fundo `#f6f6f3`, texto `#161a22`.
-- Cada app tem uma cor: Nomo `#0f6b63` (verde-petróleo), STAT `#2f4b9a` (índigo), 2×2 `#7a284b` (vinho); Bingo `#e11d48`; Gerador dourado `#a07a2c` sobre escuro; FARMACO `#b3202a` (vermelho; o André não quis roxo); Tarot Cético ametista `#6b3fa0` (visual próprio: mesa de veludo, cartas em pergaminho, fonte Macondo); Protocolo Zero verde-água `#2bb3a3` (visual próprio: mesa de campo azul-marinho, fonte Saira Condensed).
+- Cada app tem uma cor: Nomo `#0f6b63` (verde-petróleo), STAT `#2f4b9a` (índigo), 2×2 `#7a284b` (vinho), STUDY `#56671b` (verde-oliva); Bingo `#e11d48`; Gerador dourado `#a07a2c` sobre escuro; FARMACO `#b3202a` (vermelho; o André não quis roxo); Tarot Cético ametista `#6b3fa0` (visual próprio: mesa de veludo, cartas em pergaminho, fonte Macondo); Protocolo Zero verde-água `#2bb3a3` (visual próprio: mesa de campo azul-marinho, fonte Saira Condensed).
 - Cabeçalho: nome do app grande, "Criado por André D. Bacchi", botões em pílula: **Instalar** (sempre escrito por extenso, também no celular),
   Alto contraste, Como usar. O Instalar usa `beforeinstallprompt` e, se não houver, abre instruções com abas iPhone e iPad / Android / Computador.
   O Instalar só some na janela do próprio app instalado. Aberto por dentro de outro app instalado (o hub, por exemplo), o Android também responde
@@ -76,6 +77,7 @@ Livros: ficaram de fora do hub por decisão do André (pode voltar no futuro).
 - STAT LAB: a biblioteca estatística (`src/lib.js`) foi conferida contra scipy/statsmodels (`tools/ver.py`, `tools/ver.js`).
 - Bingo, Modo Sala de Aula: sem servidor. O código da partida define a ordem do sorteio e o código da cartela define a cartela
   (`src/lib/classroom.js`, PRNG mulberry32 com hash; alfabeto sem I, O, 0 e 1).
+- STUDY LAB e 2×2 LAB se ligam nos dois sentidos: o STUDY LAB abre `/2-2-lab/?a=&b=&c=&d=&tipo=` (lido em `src/lib/studyLab.js` do 2×2 LAB) e o seletor de desenho do 2×2 LAB abre `/study-lab/#tempo-<desenho>`. Conteúdo do STUDY LAB baseado nas aulas de Tipos de estudos I, II e III.
 - Hub: `qrcode.js` (Kazuhiko Arase, MIT) vem incluído no repositório, para os QR funcionarem sem internet.
 - Protocolo Zero: jogo de sala de aula (mecânica do Incan Gold) com palpites de risco por equipe e relatório final; regras e decisões no `CLAUDE.md` do repositório.
 - Tarot Cético: versão digital do livro-jogo (o livro é de acesso aberto e o André, autor, autorizou o uso literal do texto). Modo Educativo sem servidor,
