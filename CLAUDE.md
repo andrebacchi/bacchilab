@@ -77,7 +77,27 @@ Livros: ficaram de fora do hub por decisão do André (pode voltar no futuro).
 - STAT LAB: a biblioteca estatística (`src/lib.js`) foi conferida contra scipy/statsmodels (`tools/ver.py`, `tools/ver.js`).
 - Bingo, Modo Sala de Aula: sem servidor. O código da partida define a ordem do sorteio e o código da cartela define a cartela
   (`src/lib/classroom.js`, PRNG mulberry32 com hash; alfabeto sem I, O, 0 e 1).
-- STUDY LAB e 2×2 LAB se ligam nos dois sentidos: o STUDY LAB abre `/2-2-lab/?a=&b=&c=&d=&tipo=` (lido em `src/lib/studyLab.js` do 2×2 LAB) e o seletor de desenho do 2×2 LAB abre `/study-lab/#tempo-<desenho>`. Conteúdo do STUDY LAB baseado nas aulas de Tipos de estudos I, II e III.
+- Conteúdo do STUDY LAB baseado nas aulas de Tipos de estudos I, II e III.
+
+## Ligações entre os apps
+
+Regra única: números vão na query string (`?a=45&b=5`), a tela vai depois do `#` e a origem em `de=<repositório>`.
+O app que recebe lê uma vez, valida (ignora valores fora da faixa e limpa texto), apaga a query com `history.replaceState`
+e mostra um aviso "Recebido do X" dizendo o que chegou e o que o aluno deve fazer agora. Os links abrem em nova aba
+(`target="_blank" rel="noopener"`). Endereço sem parâmetros abre o app normalmente. Mudou um parâmetro, atualize os dois lados e esta lista.
+
+| De → para | Onde fica o botão | Endereço |
+|---|---|---|
+| STUDY LAB → 2×2 LAB | telas com tabela 2×2 | `/2-2-lab/?a=&b=&c=&d=&tipo=` (lido em `src/lib/studyLab.js`) |
+| 2×2 LAB → STUDY LAB | seletor de desenho do estudo | `/study-lab/#tempo-<desenho>` |
+| 2×2 LAB → Nomo LAB | Aplicação clínica › Testes diagnósticos | `/nomo-lab/?se=&sp=&nd=&nh=&pre=&ts=&dz=&de=2-2-lab#dx` (`src/lib/nomoLab.js`; `nd`/`nh` alimentam o modo incerteza; `pre` é a pré-teste editada lá) |
+| STUDY LAB → Nomo LAB | Medidas de efeito (some quando o tratamento causa dano) | `/nomo-lab/?cer=&eer=&de=study-lab#tx` (abre no modo Ensaio, risco basal = CER) |
+| Nomo LAB → 2×2 LAB e STUDY LAB | texto de abertura de cada aba (links fixos) | sem parâmetros (`#medidas` no STUDY LAB) |
+
+O Nomo LAB lê também `pc`, `iv`, `oc`, `pr` (nomes do caso de tratamento), em `fromLink()` no `index.html`.
+Próximas levas combinadas com o André: 2×2 LAB → STAT LAB (χ², Fisher; McNemar só para tabela pareada); ligações de conceito
+(STUDY Subgrupos ↔ STAT Múltiplas comparações, STUDY "Lendo um HR" ↔ STAT Kaplan-Meier, FARMACO contraceptivos → STUDY Medidas);
+depois cartas do Bingo e do Tarot → telas do STUDY LAB (lista a aprovar pelo André).
 - Hub: `qrcode.js` (Kazuhiko Arase, MIT) vem incluído no repositório, para os QR funcionarem sem internet.
 - Protocolo Zero: jogo de sala de aula (mecânica do Incan Gold) com palpites de risco por equipe e relatório final; regras e decisões no `CLAUDE.md` do repositório.
 - Tarot Cético: versão digital do livro-jogo (o livro é de acesso aberto e o André, autor, autorizou o uso literal do texto). Modo Educativo sem servidor,
