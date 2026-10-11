@@ -316,6 +316,9 @@ const GROUPS = [
     { name:'Protocolo Zero', path:'/protocolo-zero/', icon:'icons/apps/protocolo-zero.png', color:'#2bb3a3', isNew:true,
       desc:'Uma investigação epidemiológica para quem sabe a hora de voltar: a cada carta, a equipe decide se garante os dados ou arrisca mais uma coleta.',
       chips:['Jogo','Sala de aula','Probabilidade'] },
+    { name:"Zé Gotinha's Revenge", path:'/ze-gotinha-revenge/', icon:'icons/apps/ze-gotinha-revenge.png', color:'#1c7df2', isNew:true,
+      desc:'Jogo de plataforma em 16 bits: o Zé Gotinha enfrenta boatos, fake news e o Tio do Zap para libertar a Vila do Zap. Em construção, com novas fases a caminho.',
+      chips:['Jogo','Vacinas','Desinformação'] },
   ]},
 ];
 const ALL = GROUPS.flatMap(g => g.apps);
@@ -330,7 +333,7 @@ const AUTHOR = {
 const HUB = { name:'BACCHI LAB', path:'/bacchilab/', icon:'icons/icon-192.png', color:'#161a22' };
 
 const $ = s => document.querySelector(s);
-const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&quot;'}[c]));
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const full = a => SITE + a.path;
 const short = a => full(a).replace(/^https:\/\//,'').replace(/\/$/,'');
 

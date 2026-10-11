@@ -17,6 +17,7 @@ Este arquivo é o ponto de partida para qualquer conversa que vá mexer nos apps
 | FARMACO LAB | `farmaco-lab` | branch `main`, raiz | `src/*` → `sh build.sh` gera `index.html` (`sh build.sh artifact` para artefato) |
 | Tarot Cético | `tarot-cetico` | branch `main`, raiz | `src/*` → `sh build.sh` gera `index.html` e `sw.js` (`sh build.sh artifact` para artefato); ver o `CLAUDE.md` do repositório |
 | Protocolo Zero | `protocolo-zero` | branch `main`, raiz | `src/*` → `sh build.sh` gera `index.html` e `sw.js` (`sh build.sh artifact` para artefato); ver o `CLAUDE.md` do repositório |
+| Zé Gotinha's Revenge | `ze-gotinha-revenge` | branch `main`, raiz | `src/jogo.html` → `sh build.sh` gera `index.html` e `sw.js` (`sh build.sh artifact` para artefato); ver o `CLAUDE.md` do repositório |
 
 Endereço de cada app: `https://andrebacchi.github.io/<repositório>/`. O hub fica em `/bacchilab/` (o André usa um encurtador para ele).
 O André saiu do Base44: não há mais sincronização; tudo é mantido direto no GitHub.
@@ -47,7 +48,7 @@ Livros: ficaram de fora do hub por decisão do André (pode voltar no futuro).
 ## Padrão visual da série LAB
 
 - Fontes: Newsreader (títulos), Instrument Sans (texto), IBM Plex Mono (números, códigos). Fundo `#f6f6f3`, texto `#161a22`.
-- Cada app tem uma cor: Nomo `#0f6b63` (verde-petróleo), STAT `#2f4b9a` (índigo), 2×2 `#7a284b` (vinho), STUDY `#56671b` (verde-oliva); Bingo `#e11d48`; Gerador dourado `#a07a2c` sobre escuro; FARMACO `#b3202a` (vermelho; o André não quis roxo); Tarot Cético ametista `#6b3fa0` (visual próprio: mesa de veludo, cartas em pergaminho, fonte Macondo); Protocolo Zero verde-água `#2bb3a3` (visual próprio: mesa de campo azul-marinho, fonte Saira Condensed).
+- Cada app tem uma cor: Nomo `#0f6b63` (verde-petróleo), STAT `#2f4b9a` (índigo), 2×2 `#7a284b` (vinho), STUDY `#56671b` (verde-oliva); Bingo `#e11d48`; Gerador dourado `#a07a2c` sobre escuro; FARMACO `#b3202a` (vermelho; o André não quis roxo); Tarot Cético ametista `#6b3fa0` (visual próprio: mesa de veludo, cartas em pergaminho, fonte Macondo); Protocolo Zero verde-água `#2bb3a3` (visual próprio: mesa de campo azul-marinho, fonte Saira Condensed); Zé Gotinha's Revenge azul-céu `#1c7df2` (visual próprio: console 16 bits, fonte Pixelify Sans).
 - Cabeçalho: nome do app grande, "Criado por André D. Bacchi", botões em pílula: **Instalar** (sempre escrito por extenso, também no celular),
   Alto contraste, Como usar. O Instalar usa `beforeinstallprompt` e, se não houver, abre instruções com abas iPhone e iPad / Android / Computador.
   O Instalar só some na janela do próprio app instalado. Aberto por dentro de outro app instalado (o hub, por exemplo), o Android também responde
@@ -56,6 +57,7 @@ Livros: ficaram de fora do hub por decisão do André (pode voltar no futuro).
   "abra no Chrome para instalar". Nos apps React a lógica fica em `src/lib/janela.js`.
 - Voltar ao hub: todo app tem o link "‹ BACCHI LAB" (maiúsculas espaçadas, cor apagada) apontando para `https://andrebacchi.github.io/bacchilab/`.
   Na série LAB ele fica acima do nome do app (`a.hub` dentro de `.brand`); no Tarot, no Bingo e no Gerador, no canto superior esquerdo da tela inicial, ao lado do Instalar.
+  No Zé Gotinha's Revenge o link fica no canto superior esquerdo da tela de título e os botões Instalar e QR code no canto direito, para não cobrir o logotipo.
 - QR code: todo app tem um botão **QR code** ao lado do Instalar. Ele abre o QR do endereço do próprio app, grande, sobre fundo branco,
   com o endereço escrito e o botão "Copiar link", para compartilhar entre celulares ou projetar. O desenho é fixo (o endereço não muda):
   foi gerado uma vez com o `qrcode.js` deste repositório (nível M) e fica embutido em cada app, sem biblioteca. Se um endereço mudar, gere de novo.
@@ -102,5 +104,6 @@ O STAT LAB lê `a`, `b`, `c`, `d` (inteiros ≥ 0), `ex` e `ds` (nomes; viram "X
 Próxima leva combinada com o André: cartas do Bingo e do Tarot → telas do STUDY LAB (lista a aprovar pelo André antes de ligar).
 - Hub: `qrcode.js` (Kazuhiko Arase, MIT) vem incluído no repositório, para os QR funcionarem sem internet.
 - Protocolo Zero: jogo de sala de aula (mecânica do Incan Gold) com palpites de risco por equipe e relatório final; regras e decisões no `CLAUDE.md` do repositório.
+- Zé Gotinha's Revenge: jogo de plataforma em estilo 16 bits sobre desinformação e vacinas, em construção (fase 1 no ar); regras, decisões e o fluxo de arte no `CLAUDE.md` do repositório.
 - Tarot Cético: versão digital do livro-jogo (o livro é de acesso aberto e o André, autor, autorizou o uso literal do texto). Modo Educativo sem servidor,
   com código da turma e código pessoal do aluno (mesma ideia do Bingo). "A carta de hoje" sai da data: no mesmo dia, todos recebem a mesma carta.
