@@ -71,7 +71,7 @@ Livros: ficaram de fora do hub por decisão do André (pode voltar no futuro).
 - Exemplos genéricos, sem copiar os slides da aula.
 - Probabilidade fica dentro de Estatística descritiva no STAT LAB.
 - Copyright: "© André Demambre Bacchi. Todos os direitos reservados"; Nomo LAB e STAT LAB sob CC BY 4.0.
-- FARMACO LAB: uma aba por classe (no ar: anestésicos locais e contraceptivos orais; depois farmacocinética, farmacodinâmica, outras classes). As classes ficam em `LABS` (`src/main.js`); contraceptivos orais em `src/co-*.js`, com base na aula do André e nas fontes citadas em cada Saiba mais. Conteúdo baseado nas aulas do André, já com as correções (três estados do canal NaV; manto × núcleo explica a ordem topográfica, não C antes de A; pH inflamado não é fixo; lidocaína 4,5 mg/kg sem adrenalina).
+- FARMACO LAB: uma aba por classe (no ar: anestésicos locais, contraceptivos orais e sistema respiratório; depois farmacocinética, farmacodinâmica, outras classes). As classes ficam em `LABS` (`src/main.js`); contraceptivos orais em `src/co-*.js` e sistema respiratório em `src/rs-*.js` (9 telas, GINA 2025/2026 e GOLD 2026), com base nas aulas do André e nas fontes citadas em cada Saiba mais. Conteúdo baseado nas aulas do André, já com as correções (três estados do canal NaV; manto × núcleo explica a ordem topográfica, não C antes de A; pH inflamado não é fixo; lidocaína 4,5 mg/kg sem adrenalina).
 - Service workers: todos os apps dividem a origem andrebacchi.github.io; ao limpar caches antigos, apague só os do próprio app (filtrar pelo prefixo).
 
 ## Detalhes técnicos úteis
