@@ -17,6 +17,7 @@ Este arquivo é o ponto de partida para qualquer conversa que vá mexer nos apps
 | FARMACO LAB | `farmaco-lab` | branch `main`, raiz | `src/*` → `sh build.sh` gera `index.html` (`sh build.sh artifact` para artefato) |
 | Tarot Cético | `tarot-cetico` | branch `main`, raiz | `src/*` → `sh build.sh` gera `index.html` e `sw.js` (`sh build.sh artifact` para artefato); ver o `CLAUDE.md` do repositório |
 | Protocolo Zero | `protocolo-zero` | branch `main`, raiz | `src/*` → `sh build.sh` gera `index.html` e `sw.js` (`sh build.sh artifact` para artefato); ver o `CLAUDE.md` do repositório |
+| RASTREIO LAB | `rastreio-lab` | branch `main`, raiz | `src/*` → `sh build.sh` gera `index.html` (`sh build.sh artifact` para artefato); ver o `CLAUDE.md` do repositório |
 | Zé Gotinha's Revenge | `ze-gotinha-revenge` | branch `main`, raiz | `src/jogo.html` → `sh build.sh` gera `index.html` e `sw.js` (`sh build.sh artifact` para artefato); ver o `CLAUDE.md` do repositório |
 
 Endereço de cada app: `https://andrebacchi.github.io/<repositório>/`. O hub fica em `/bacchilab/` (o André usa um encurtador para ele).
@@ -48,7 +49,7 @@ Livros: ficaram de fora do hub por decisão do André (pode voltar no futuro).
 ## Padrão visual da série LAB
 
 - Fontes: Newsreader (títulos), Instrument Sans (texto), IBM Plex Mono (números, códigos). Fundo `#f6f6f3`, texto `#161a22`.
-- Cada app tem uma cor: Nomo `#0f6b63` (verde-petróleo), STAT `#2f4b9a` (índigo), 2×2 `#7a284b` (vinho), STUDY `#56671b` (verde-oliva); Bingo `#e11d48`; Gerador dourado `#a07a2c` sobre escuro; FARMACO `#b3202a` (vermelho; o André não quis roxo); Tarot Cético ametista `#6b3fa0` (visual próprio: mesa de veludo, cartas em pergaminho, fonte Macondo); Protocolo Zero verde-água `#2bb3a3` (visual próprio: mesa de campo azul-marinho, fonte Saira Condensed); Zé Gotinha's Revenge azul-céu `#1c7df2` (visual próprio: console 16 bits, fonte Pixelify Sans).
+- Cada app tem uma cor: Nomo `#0f6b63` (verde-petróleo), STAT `#2f4b9a` (índigo), 2×2 `#7a284b` (vinho), STUDY `#56671b` (verde-oliva), RASTREIO `#b8510a` (laranja queimado); Bingo `#e11d48`; Gerador dourado `#a07a2c` sobre escuro; FARMACO `#b3202a` (vermelho; o André não quis roxo); Tarot Cético ametista `#6b3fa0` (visual próprio: mesa de veludo, cartas em pergaminho, fonte Macondo); Protocolo Zero verde-água `#2bb3a3` (visual próprio: mesa de campo azul-marinho, fonte Saira Condensed); Zé Gotinha's Revenge azul-céu `#1c7df2` (visual próprio: console 16 bits, fonte Pixelify Sans).
 - Cabeçalho: nome do app grande, "Criado por André D. Bacchi", botões em pílula: **Instalar** (sempre escrito por extenso, também no celular),
   Alto contraste, Como usar. O Instalar usa `beforeinstallprompt` e, se não houver, abre instruções com abas iPhone e iPad / Android / Computador.
   O Instalar só some na janela do próprio app instalado. Aberto por dentro de outro app instalado (o hub, por exemplo), o Android também responde
@@ -97,6 +98,7 @@ e mostra um aviso "Recebido do X" dizendo o que chegou e o que o aluno deve faze
 | Nomo LAB → 2×2 LAB e STUDY LAB | texto de abertura de cada aba (links fixos) | sem parâmetros (`#medidas` no STUDY LAB) |
 | 2×2 LAB → STAT LAB | Inferência › χ² e Testes; Aplicação clínica › Testes diagnósticos › McNemar | `/stat-lab/?a=&b=&c=&d=&ex=&ds=&de=2-2-lab#testes-chi` (ou `#testes-fisher` quando há esperado < 5; `#testes-mcn` só no painel do McNemar, para tabela pareada). `src/lib/statLab.js`; lido em `fromLink()` no `src/main.js` do STAT LAB |
 | STUDY LAB ↔ STAT LAB | Subgrupos → Múltiplas comparações; Medidas (Lendo um HR) → Kaplan-Meier; e a volta | `/stat-lab/#mult`, `/stat-lab/#testes-km`, `/study-lab/#sub`, `/study-lab/#medidas` (links de conceito, sem números) |
+| RASTREIO LAB → Nomo LAB e 2×2 LAB | Quem o teste pega | `/nomo-lab/?se=&sp=&pre=&de=rastreio-lab#dx`, `/2-2-lab/?a=&b=&c=&d=&tipo=transversal&de=rastreio-lab` (a volta para o RASTREIO LAB ainda não foi ligada nos outros apps) |
 | FARMACO LAB → STUDY LAB e STAT LAB | Contraceptivos: Trombose → Medidas de efeito; Eficácia (tábua de vida) → Kaplan-Meier | `/study-lab/#medidas`, `/stat-lab/#testes-km` |
 
 O Nomo LAB lê também `pc`, `iv`, `oc`, `pr` (nomes do caso de tratamento), em `fromLink()` no `index.html`.
